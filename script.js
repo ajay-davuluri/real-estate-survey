@@ -418,6 +418,7 @@
                 </div>
             </div>`;
         showConfetti();
+        submitSurvey();
         console.log('Survey Complete! Responses:', JSON.stringify(answers, null, 2));
     }
 
@@ -801,6 +802,25 @@
         }
 
         setTimeout(() => container.remove(), 5000);
+    }
+
+    async function submitSurvey() {
+        try {
+            await fetch(
+                "https://script.google.com/macros/s/AKfycbxgQvZlcNfDmxSMd_IiaBMXpLCrQaX6-lciUK--CCJNb47i0oxaW76akYH_9J4BiiP3Xg/exec",
+                {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: JSON.stringify(answers)
+                }
+            );
+            console.log("Survey submitted successfully");
+        } catch(error) {
+            console.error(
+                "Submission failed",
+                error
+            );
+        }
     }
 
     // Initialize
