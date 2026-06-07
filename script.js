@@ -806,20 +806,38 @@
 
     async function submitSurvey() {
         try {
-            await fetch(
-                "https://script.google.com/macros/s/AKfycbxgQvZlcNfDmxSMd_IiaBMXpLCrQaX6-lciUK--CCJNb47i0oxaW76akYH_9J4BiiP3Xg/exec",
-                {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(answers)
-                }
-            );
+            // Use an iframe-based form submission to avoid CORS entirely
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "https://script.google.com/macros/s/AKfycbxWIcJOQUQZTfpEwH57DvJhyfcNYDqn52q9XKavH98YuH91uW6Vg2HtjgU7NwcXVytrhQ/exec";
+            form.target = '_blank';
+            form.style.display = 'none';
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'data';
+            input.value = JSON.stringify(answers);
+            form.appendChild(input);
+            
+            // Use a hidden iframe to prevent page navigation
+            const iframe = document.createElement('iframe');
+            iframe.name = 'submitFrame';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            form.target = 'submitFrame';
+            
+            document.body.appendChild(form);
+            form.submit();
+            
+            // Cleanup
+            setTimeout(() => {
+                form.remove();
+                iframe.remove();
+            }, 3000);
+            
             console.log("Survey submitted successfully");
         } catch(error) {
-            console.error(
-                "Submission failed",
-                error
-            );
+            console.error("Submission failed", error);
         }
     }
 
