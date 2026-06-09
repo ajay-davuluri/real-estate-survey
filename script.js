@@ -1,6 +1,6 @@
     const answers = {};
     let currentQuestion = 0; // 0 = welcome
-    const totalQuestions = 40;
+    const totalQuestions = 39;
 
     const questions = [
         // Q0: Welcome
@@ -26,8 +26,8 @@
           title: 'How confident are you in finding the right property within your budget?',
           labelLow: 'Not confident', labelHigh: 'Very confident' },
         { id: 'q7', type: 'text', section: 'Section 2: Your Current Property Search Context',
-          title: 'What worries you most about finding a property?',
-          placeholder: 'What worries you most about finding a property?' },
+          title: 'What concerns you most right now about finding a property?\n\nFor example: pricing transparency, hidden charges, legal issues, builder credibility, location safety, resale value, loan approvals, construction quality, or anything else.',
+          placeholder: 'e.g., Hidden charges, builder reputation, legal clearances, loan approval delays, property quality...' },
         // SECTION 3: Recent Search Experience
         { id: 'q8', type: 'numeric', section: 'Section 3: Recent Search Experience', sectionIntro: '🏠 Now let\'s talk about your recent search experience...',
           title: 'How many properties have you physically visited so far?',
@@ -47,89 +47,86 @@
         { id: 'q13', type: 'rating', section: 'Section 3: Recent Search Experience',
           title: 'How stressful has the property search process been?',
           labelLow: 'Not stressful', labelHigh: 'Extremely stressful' },
-        { id: 'q14', type: 'rating', section: 'Section 3: Recent Search Experience',
-          title: 'How physically exhausting has the search been?',
-          labelLow: 'Not exhausting', labelHigh: 'Extremely exhausting' },
+        { id: 'q14', type: 'text', section: 'Section 3: Recent Search Experience',
+          title: 'Which part of the property search process consumed the most time?\n\nParts of property search include: browsing listings online, shortlisting properties, scheduling visits, physically visiting properties, negotiating price, verifying legal documents, arranging financing/loans, coordinating with brokers, or comparing options.',
+          placeholder: 'e.g., Visiting too many properties, verifying legal documents, negotiating with sellers, getting loan approvals...' },
         { id: 'q15', type: 'text', section: 'Section 3: Recent Search Experience',
-          title: 'Which part of the search process took the most time?',
-          placeholder: 'Which part took the most time?' },
-        { id: 'q16', type: 'text', section: 'Section 3: Recent Search Experience',
-          title: 'If you could change one thing about the search process, what would it be?',
-          placeholder: 'What one thing would you change?' },
+          title: 'If you could change one thing about your property search experience, what would it be?\n\nThink about: how you discover properties, how brokers communicate, how visits are scheduled, how pricing is shared, how legal verification works, how loans are processed, or how decisions are made.',
+          placeholder: 'e.g., Better filtering before visits, more transparent pricing, fewer irrelevant recommendations...' },
         // SECTION 4: Guidance and Recommendations
-        { id: 'q17', type: 'multiple', section: 'Section 4: Guidance and Recommendations', sectionIntro: '🤝 Let\'s talk about the advice and recommendations you received...',
+        { id: 'q16', type: 'multiple', section: 'Section 4: Guidance and Recommendations', sectionIntro: '🤝 Let\'s talk about the advice and recommendations you received...',
           title: 'Where did you get property recommendations from?',
           hint: 'Select all that apply',
           options: ['Real Estate Agents', 'Property Portals', 'Friends and Family', 'Builders', 'Social Media', 'YouTube', 'Other'] },
-        { id: 'q18', type: 'rating', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q17', type: 'rating', section: 'Section 4: Guidance and Recommendations',
           title: 'How well did recommendations match your actual needs?',
           labelLow: 'Never matched', labelHigh: 'Always matched' },
-        { id: 'q19', type: 'rating', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q18', type: 'rating', section: 'Section 4: Guidance and Recommendations',
           title: 'How often did you receive irrelevant property suggestions?',
           labelLow: 'Never irrelevant', labelHigh: 'Always irrelevant' },
-        { id: 'q20', type: 'rating', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q19', type: 'rating', section: 'Section 4: Guidance and Recommendations',
           title: 'How much do you trust the recommendations you received?',
           labelLow: 'No trust', labelHigh: 'Complete trust' },
-        { id: 'q21', type: 'single', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q20', type: 'single', section: 'Section 4: Guidance and Recommendations',
           title: 'How often did agents push properties that didn\'t match your criteria?',
           options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] },
-        { id: 'q22', type: 'text', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q21', type: 'text', section: 'Section 4: Guidance and Recommendations',
           title: 'Can you describe a situation where a recommendation didn\'t match reality?',
           placeholder: 'Describe a situation where a recommendation didn\'t match reality...' },
-        { id: 'q23', type: 'text', section: 'Section 4: Guidance and Recommendations',
+        { id: 'q22', type: 'text', section: 'Section 4: Guidance and Recommendations',
           title: 'What makes you trust a property recommendation?',
           placeholder: 'What makes you trust a property recommendation?' },
         // SECTION 5: Challenges and Frictions
-        { id: 'q24', type: 'rating', section: 'Section 5: Challenges and Frictions', sectionIntro: '⚡ Almost there! Let\'s identify the biggest pain points...',
+        { id: 'q23', type: 'rating', section: 'Section 5: Challenges and Frictions', sectionIntro: '⚡ Almost there! Let\'s identify the biggest pain points...',
           title: 'How much of a problem is budget mismatch in property recommendations?',
           labelLow: 'Not a problem', labelHigh: 'Major problem' },
-        { id: 'q25', type: 'rating', section: 'Section 5: Challenges and Frictions',
+        { id: 'q24', type: 'rating', section: 'Section 5: Challenges and Frictions',
           title: 'How much of a problem is location mismatch?',
           labelLow: 'Not a problem', labelHigh: 'Major problem' },
-        { id: 'q26', type: 'rating', section: 'Section 5: Challenges and Frictions',
+        { id: 'q25', type: 'rating', section: 'Section 5: Challenges and Frictions',
           title: 'How much of a problem is the gap between property description and reality?',
           labelLow: 'Not a problem', labelHigh: 'Major problem' },
-        { id: 'q27', type: 'rating', section: 'Section 5: Challenges and Frictions',
+        { id: 'q26', type: 'rating', section: 'Section 5: Challenges and Frictions',
           title: 'How much pressure do you feel to make quick decisions?',
           labelLow: 'No pressure', labelHigh: 'Extreme pressure' },
-        { id: 'q28', type: 'rating', section: 'Section 5: Challenges and Frictions',
+        { id: 'q27', type: 'rating', section: 'Section 5: Challenges and Frictions',
           title: 'How much of a problem are hidden details (fees, legal issues, maintenance)?',
           labelLow: 'Not a problem', labelHigh: 'Major problem' },
-        { id: 'q29', type: 'rank', section: 'Section 5: Challenges and Frictions',
+        { id: 'q28', type: 'rank', section: 'Section 5: Challenges and Frictions',
           title: 'Rank these pain points from most frustrating (1) to least frustrating (8):',
           items: ['Irrelevant Recommendations', 'Time Wasted Visiting', 'Budget Mismatches', 'Hidden Information', 'Pressure From Agents', 'Too Many Choices', 'Too Few Choices', 'Lack of Trust'] },
-        { id: 'q30', type: 'single', section: 'Section 5: Challenges and Frictions',
+        { id: 'q29', type: 'single', section: 'Section 5: Challenges and Frictions',
           title: 'If you could eliminate ONE problem from your search, which would it be?',
           options: ['Irrelevant Recommendations', 'Time Wasted Visiting', 'Budget Mismatches', 'Hidden Information', 'Pressure From Agents', 'Too Many Choices', 'Too Few Choices', 'Lack of Trust'] },
-        { id: 'q31', type: 'text', section: 'Section 5: Challenges and Frictions',
+        { id: 'q30', type: 'text', section: 'Section 5: Challenges and Frictions',
           title: 'Describe the single most frustrating moment in your property search.',
           placeholder: 'Describe the most frustrating moment...' },
         // SECTION 6: Exploring a Different Approach
-        { id: 'q32', type: 'rating', section: 'Section 6: Exploring a Different Approach', sectionIntro: '✨ Final section! We\'d love your thoughts on a new approach...',
+        { id: 'q31', type: 'rating', section: 'Section 6: Exploring a Different Approach', sectionIntro: '✨ Final section! We\'d love your thoughts on a new approach...',
           title: 'How valuable would it be to receive only filtered, highly relevant property recommendations?',
           labelLow: 'Not valuable', labelHigh: 'Extremely valuable' },
-        { id: 'q33', type: 'rating', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q32', type: 'rating', section: 'Section 6: Exploring a Different Approach',
           title: 'How valuable would it be if the number of property visits could be reduced by 50%?',
           labelLow: 'Not valuable', labelHigh: 'Extremely valuable' },
-        { id: 'q34', type: 'rank', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q33', type: 'rank', section: 'Section 6: Exploring a Different Approach',
           title: 'Rank what matters most to you (1 = most important):',
           items: ['Fewer Property Visits', 'Better Property Matches', 'More Trustworthy Recommendations', 'Less Time Spent Searching', 'Greater Transparency', 'Reduced Decision Fatigue'] },
-        { id: 'q35', type: 'rating', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q34', type: 'rating', section: 'Section 6: Exploring a Different Approach',
           title: 'How likely are you to try a new service that provides curated, verified property recommendations?',
           labelLow: 'Very unlikely', labelHigh: 'Very likely' },
-        { id: 'q36', type: 'text', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q35', type: 'text', section: 'Section 6: Exploring a Different Approach',
           title: 'What concerns would you have about trying such a service?',
           placeholder: 'What concerns would you have?' },
-        { id: 'q37', type: 'single', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q36', type: 'single', section: 'Section 6: Exploring a Different Approach',
           title: 'Would you be interested in being an early user of such a service?',
           options: ['Yes', 'Maybe', 'No'] },
-        { id: 'q38', type: 'contact', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q37', type: 'contact', section: 'Section 6: Exploring a Different Approach',
           title: 'Great! Please share your contact details so we can reach out:',
           conditional: true },
-        { id: 'q39', type: 'single', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q38', type: 'single', section: 'Section 6: Exploring a Different Approach',
           title: 'Would you be open to a 15-minute follow-up conversation?',
           options: ['Yes', 'No'] },
-        { id: 'q40', type: 'text', section: 'Section 6: Exploring a Different Approach',
+        { id: 'q39', type: 'text', section: 'Section 6: Exploring a Different Approach',
           title: 'Is there anything else you\'d like to share about your property search experience?',
           placeholder: 'Anything else you\'d like to share?' },
         // Thank you
@@ -199,103 +196,99 @@
                 return '👍 Not too many wasted visits! Still, how stressful was the overall search?';
             // After Q13 → Q14 (adaptive to stress)
             case 14:
-                if (answers.q13 >= 8) return '😓 That sounds really stressful. How mentally exhausting was it?';
-                if (answers.q13 >= 5) return '😐 Moderate stress — understandable. How about mental exhaustion?';
-                return '😊 Relatively low stress — nice! Was it mentally draining though?';
+                if (answers.q13 >= 8) return '😓 That sounds really stressful. Which part consumed the most time?';
+                if (answers.q13 >= 5) return '😐 Moderate stress — understandable. Which part ate up the most time?';
+                return '😊 Relatively low stress — nice! Which part of the process took the most time?';
             // After Q14 → Q15
-            case 15:
-                if (answers.q14 >= 7) return '🧠 Mental fatigue is real in property search. What part consumed the most time?';
-                return '📝 Good to know. Which part of the process ate up the most time?';
-            // After Q15 → Q16
-            case 16: return '⏱️ Time is precious. If you had a magic wand, what would you change?';
-            // SECTION 4 START: After Q16 → Q17
-            case 17: return '🤝 Great insights! Now let\'s talk about the advice and recommendations you received...';
+            case 15: return '⏱️ Time is precious. If you had a magic wand, what would you change?';
+            // SECTION 4 START: After Q15 → Q16
+            case 16: return '🤝 Great insights! Now let\'s talk about the advice and recommendations you received...';
+            // After Q16 → Q17
+            case 17:
+                if (answers.q16 && answers.q16.includes('Real Estate Agents')) return '🏢 Agents were in the mix! How well did their recommendations actually match your needs?';
+                if (answers.q16 && answers.q16.includes('Friends and Family')) return '👨‍👩‍👧 Family knows best? Let\'s see — how well did recommendations match your needs?';
+                return '📡 Interesting sources! How well did recommendations match what you actually wanted?';
             // After Q17 → Q18
             case 18:
-                if (answers.q17 && answers.q17.includes('Real Estate Agents')) return '🏢 Agents were in the mix! How well did their recommendations actually match your needs?';
-                if (answers.q17 && answers.q17.includes('Friends and Family')) return '👨‍👩‍👧 Family knows best? Let\'s see — how well did recommendations match your needs?';
-                return '📡 Interesting sources! How well did recommendations match what you actually wanted?';
+                if (answers.q17 <= 4) return '😕 Low match rate — frustrating. How often were suggestions completely irrelevant?';
+                if (answers.q17 >= 7) return '👍 Decent matching! But how often did you still get irrelevant suggestions?';
+                return '📊 Mixed results. How often did you receive outright irrelevant recommendations?';
             // After Q18 → Q19
             case 19:
-                if (answers.q18 <= 4) return '😕 Low match rate — frustrating. How often were suggestions completely irrelevant?';
-                if (answers.q18 >= 7) return '👍 Decent matching! But how often did you still get irrelevant suggestions?';
-                return '📊 Mixed results. How often did you receive outright irrelevant recommendations?';
+                if (answers.q18 >= 7) return '😤 Lots of irrelevant noise — annoying! How much did you trust what you were told?';
+                return '📝 Noted! Overall, how much trust did you place in the recommendations?';
             // After Q19 → Q20
             case 20:
-                if (answers.q19 >= 7) return '😤 Lots of irrelevant noise — annoying! How much did you trust what you were told?';
-                return '📝 Noted! Overall, how much trust did you place in the recommendations?';
+                if (answers.q19 <= 4) return '🤨 Low trust — that says a lot. How often did you verify information yourself?';
+                return '🔍 Interesting trust level. How often did you independently verify what agents told you?';
             // After Q20 → Q21
             case 21:
-                if (answers.q20 <= 4) return '🤨 Low trust — that says a lot. How often did you verify information yourself?';
-                return '🔍 Interesting trust level. How often did you independently verify what agents told you?';
-            // After Q21 → Q22
-            case 22:
-                if (answers.q21 === 'Always' || answers.q21 === 'Often') return '🕵️ Smart to verify! Can you share a time when a recommendation didn\'t match reality?';
+                if (answers.q20 === 'Always' || answers.q20 === 'Often') return '🕵️ Smart to verify! Can you share a time when a recommendation didn\'t match reality?';
                 return '📝 Got it. Can you describe a specific mismatch between recommendation and reality?';
-            // After Q22 → Q23
-            case 23: return '🤔 Interesting story! Now flip it — what WOULD make you trust a recommendation?';
-            // SECTION 5 START: After Q23 → Q24
-            case 24: return '⚡ Almost there! Let\'s zero in on the biggest pain points...';
+            // After Q21 → Q22
+            case 22: return '🤔 Interesting story! Now flip it — what WOULD make you trust a recommendation?';
+            // SECTION 5 START: After Q22 → Q23
+            case 23: return '⚡ Almost there! Let\'s zero in on the biggest pain points...';
+            // After Q23 → Q24
+            case 24:
+                if (answers.q23 >= 7) return '💸 Budget mismatch is a big pain! What about location mismatches?';
+                return '📝 Noted on budget. How about location — did properties match your area preferences?';
             // After Q24 → Q25
             case 25:
-                if (answers.q24 >= 7) return '💸 Budget mismatch is a big pain! What about location mismatches?';
-                return '📝 Noted on budget. How about location — did properties match your area preferences?';
+                if (answers.q24 >= 7) return '📍 Location mismatch too — double frustration! What about descriptions vs reality?';
+                return '📍 Got it! How about property descriptions — did they match what you actually saw?';
             // After Q25 → Q26
             case 26:
-                if (answers.q25 >= 7) return '📍 Location mismatch too — double frustration! What about descriptions vs reality?';
-                return '📍 Got it! How about property descriptions — did they match what you actually saw?';
+                if (answers.q25 >= 7) return '📸 Misleading descriptions — that breaks trust! Did you feel pressure to decide quickly?';
+                return '📝 Description gaps noted. Did you feel pressure to make quick decisions?';
             // After Q26 → Q27
             case 27:
-                if (answers.q26 >= 7) return '📸 Misleading descriptions — that breaks trust! Did you feel pressure to decide quickly?';
-                return '📝 Description gaps noted. Did you feel pressure to make quick decisions?';
+                if (answers.q26 >= 7) return '😰 High pressure tactics — nobody likes that! Were important details hidden from you?';
+                return '📋 Pressure level noted. How about transparency — were details hidden until later?';
             // After Q27 → Q28
             case 28:
-                if (answers.q27 >= 7) return '😰 High pressure tactics — nobody likes that! Were important details hidden from you?';
-                return '📋 Pressure level noted. How about transparency — were details hidden until later?';
-            // After Q28 → Q29
-            case 29:
-                if (answers.q28 >= 7) return '🙈 Hidden information is a big red flag! Now rank all these frustrations...';
+                if (answers.q27 >= 7) return '🙈 Hidden information is a big red flag! Now rank all these frustrations...';
                 return '📝 Got it! Now let\'s rank all these pain points from worst to least...';
+            // After Q28 → Q29
+            case 29: return '📊 Great ranking! If you could only fix ONE of these, which would it be?';
             // After Q29 → Q30
-            case 30: return '📊 Great ranking! If you could only fix ONE of these, which would it be?';
-            // After Q30 → Q31
-            case 31: return '🎯 Clear priority! Now tell us your single most frustrating moment...';
-            // SECTION 6 START: After Q31 → Q32
-            case 32: return '✨ Final section! We\'re exploring something different — your honest thoughts would mean a lot...';
+            case 30: return '🎯 Clear priority! Now tell us your single most frustrating moment...';
+            // SECTION 6 START: After Q30 → Q31
+            case 31: return '✨ Final section! We\'re exploring something different — your honest thoughts would mean a lot...';
+            // After Q31 → Q32
+            case 32:
+                if (answers.q31 >= 8) return '🌟 High value — that\'s encouraging! What if we could cut property visits in half?';
+                if (answers.q31 >= 5) return '🤔 Interesting! What if unnecessary visits could be reduced by 50%?';
+                return '📝 Noted. Here\'s another angle — what if property visits were cut in half?';
             // After Q32 → Q33
             case 33:
-                if (answers.q32 >= 8) return '🌟 High value — that\'s encouraging! What if we could cut property visits in half?';
-                if (answers.q32 >= 5) return '🤔 Interesting! What if unnecessary visits could be reduced by 50%?';
-                return '📝 Noted. Here\'s another angle — what if property visits were cut in half?';
-            // After Q33 → Q34
-            case 34:
-                if (answers.q33 >= 8) return '🎯 Huge value in saving time! Let\'s understand what matters most to you...';
+                if (answers.q32 >= 8) return '🎯 Huge value in saving time! Let\'s understand what matters most to you...';
                 return '📝 Got it! Now rank what would matter most in an ideal service...';
-            // After Q34 → Q35
-            case 35: return '📋 Priorities clear! One key question — would you actually try such a platform?';
-            // After Q35 → Q36 (adaptive)
-            case 36:
-                if (answers.q35 >= 8) return '🎉 Amazing! What concerns might still hold you back?';
-                if (answers.q35 >= 5) return '🤔 Open to it! What would you need to feel comfortable trying it?';
+            // After Q33 → Q34
+            case 34: return '📋 Priorities clear! One key question — would you actually try such a platform?';
+            // After Q34 → Q35 (adaptive)
+            case 35:
+                if (answers.q34 >= 8) return '🎉 Amazing! What concerns might still hold you back?';
+                if (answers.q34 >= 5) return '🤔 Open to it! What would you need to feel comfortable trying it?';
                 return '👍 Fair enough! What would concern you about trying something new?';
-            // After Q36 → Q37
-            case 37: return '🙏 Thanks for being honest! Last few questions — would you want early access?';
-            // After Q37 → Q38 (adaptive)
-            case 38:
-                if (answers.q37 === 'Yes') return '🎊 Fantastic! We\'d love to keep in touch — drop your details below:';
+            // After Q35 → Q36
+            case 36: return '🙏 Thanks for being honest! Last few questions — would you want early access?';
+            // After Q36 → Q37 (adaptive)
+            case 37:
+                if (answers.q36 === 'Yes') return '🎊 Fantastic! We\'d love to keep in touch — drop your details below:';
                 return '😊 Great — just in case you change your mind, here\'s where to leave your info:';
+            // After Q37 → Q38
+            case 38: return '📞 One more — would you be open to a quick follow-up chat?';
             // After Q38 → Q39
-            case 39: return '📞 One more — would you be open to a quick follow-up chat?';
-            // After Q39 → Q40
-            case 40: return '🏁 Last question! Anything else on your mind about property search?';
+            case 39: return '🏁 Last question! Anything else on your mind about property search?';
             default: return null;
         }
     }
 
     function shouldSkipQuestion(index) {
-        // Q38 (index 38) only shows if Q37 is Yes or Maybe
-        if (index === 38) {
-            return answers.q37 === 'No';
+        // Q37 (contact form) only shows if Q36 is Yes or Maybe
+        if (index === 37) {
+            return answers.q36 === 'No';
         }
         return false;
     }
@@ -397,7 +390,7 @@
                     <p>This survey will help us understand the challenges people face when searching for properties in India, and explore how we can make the process better.</p>
                     <div class="highlight">
                         <strong>⏱️ Time:</strong> ~10-12 minutes<br>
-                        <strong>📝 Questions:</strong> 40 questions across 6 sections<br>
+                        <strong>📝 Questions:</strong> 39 questions across 6 sections<br>
                         <strong>🔒 Privacy:</strong> Your responses are confidential and used only for research purposes.
                     </div>
                     <p style="margin-top:20px; font-size:14px; color:#9ca3af;">There are no right or wrong answers — we just want your honest experience.</p>
@@ -455,7 +448,8 @@
     }
 
     function renderNumeric(q) {
-        const val = answers[q.id] || 0;
+        if (answers[q.id] === undefined) answers[q.id] = 0;
+        const val = answers[q.id];
         return `<div class="numeric-container">
             <button class="numeric-btn" onclick="adjustNumeric(-1)">−</button>
             <input type="number" class="numeric-input" id="numericAnswer" value="${val}" min="0" placeholder="${q.placeholder || '0'}">
@@ -607,6 +601,20 @@
                     document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
                     card.classList.add('selected');
                     answers[q.id] = card.dataset.value;
+                    
+                    // Early exit: if Q1 answer is "Not currently searching", fill NA and end
+                    if (q.id === 'q1' && card.dataset.value === 'Not currently searching') {
+                        for (let i = 2; i <= 39; i++) {
+                            answers['q' + i] = 'NA';
+                        }
+                        playClickSound();
+                        setTimeout(() => {
+                            currentQuestion = totalQuestions + 1;
+                            renderQuestion();
+                        }, 400);
+                        return;
+                    }
+                    
                     // Auto-advance unless it's the last question
                     if (currentQuestion < totalQuestions) {
                         autoAdvance();
@@ -720,7 +728,7 @@
                 hasAnswer = !!(answers[q.id] && answers[q.id].trim());
                 break;
             case 'numeric':
-                hasAnswer = answers[q.id] !== undefined && answers[q.id] !== '';
+                hasAnswer = answers[q.id] !== undefined;
                 break;
             case 'rating':
                 hasAnswer = !!answers[q.id];
