@@ -95,7 +95,7 @@ const questions = [
         id: 'top_concern',
         type: 'text',
         section: 'Section 2: Your Current Property Search Context',
-        title: 'What concerns you most right now about finding a property?\n\nFor example: pricing transparency, hidden charges, legal issues, builder credibility, location safety, resale value, loan approvals, construction quality, or anything else.',
+        title: 'What concerns you most right now about finding a property?\n\n(For example: pricing transparency, hidden charges, legal issues, builder credibility, location safety, resale value, loan approvals, construction quality, or anything else.)',
         placeholder: 'e.g., Hidden charges, builder reputation, legal clearances, loan approval delays, property quality...',
         transition: (answers) => {
             if (answers.confidence_level >= 8) return '💪 High confidence — that\'s great! Still, what\'s your biggest worry?';
@@ -176,7 +176,7 @@ const questions = [
         id: 'time_consuming_part',
         type: 'text',
         section: 'Section 3: Recent Search Experience',
-        title: 'Which part of the property search process consumed the most time?\n\nParts of property search include: browsing listings online, shortlisting properties, scheduling visits, physically visiting properties, negotiating price, verifying legal documents, arranging financing/loans, coordinating with brokers, or comparing options.',
+        title: 'Which part of the property search process consumed the most time?\n\n(Parts of property search include: browsing listings online, shortlisting properties, scheduling visits, physically visiting properties, negotiating price, verifying legal documents, arranging financing/loans, coordinating with brokers, or comparing options.)',
         placeholder: 'e.g., Visiting too many properties, verifying legal documents, negotiating with sellers, getting loan approvals...',
         transition: (answers) => {
             if (answers.stress_level >= 8) return '😓 That sounds really stressful. Which part consumed the most time?';
@@ -188,7 +188,7 @@ const questions = [
         id: 'one_thing_to_change',
         type: 'text',
         section: 'Section 3: Recent Search Experience',
-        title: 'If you could change one thing about your property search experience, what would it be?\n\nThink about: how you discover properties, how brokers communicate, how visits are scheduled, how pricing is shared, how legal verification works, how loans are processed, or how decisions are made.',
+        title: 'If you could change one thing about your property search experience, what would it be?\n\n(Think about: how you discover properties, how brokers communicate, how visits are scheduled, how pricing is shared, how legal verification works, how loans are processed, or how decisions are made.)',
         placeholder: 'e.g., Better filtering before visits, more transparent pricing, fewer irrelevant recommendations...',
         transition: () => '⏱️ Time is precious. If you had a magic wand, what would you change?'
     },
@@ -537,7 +537,9 @@ function renderQuestion() {
     if (q.section) {
         html += `<div class="section-header">${q.section}</div>`;
     }
-    html += `<div class="question-title">${q.title}</div>`;
+    // Render title — wrap bracketed guidance in a styled span
+    const titleHtml = q.title.replace(/\n\n\(([^)]+)\)/g, '<br><br><span class="question-guidance">($1)</span>');
+    html += `<div class="question-title">${titleHtml}</div>`;
     if (q.hint) {
         html += `<div class="question-hint">${q.hint}</div>`;
     }
@@ -925,7 +927,9 @@ function updateNextButton() {
             break;
         case 'contact':
             const c = answers[q.id];
-            hasAnswer = c && c.name && c.email;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^[\d\s\+\-()]{7,15}$/;
+            hasAnswer = c && c.name && c.name.trim() && emailRegex.test(c.email) && phoneRegex.test(c.phone);
             break;
     }
 
