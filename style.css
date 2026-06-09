@@ -104,6 +104,12 @@
             line-height: 1.4;
         }
 
+        .question-guidance {
+            font-size: 18px;
+            font-weight: 300;
+            color: #6b7280;
+        }
+
         .question-hint {
             font-size: 14px;
             color: #6b7280;
