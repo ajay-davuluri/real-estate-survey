@@ -129,8 +129,8 @@ const questions = [
         id: 'brokers_contacted',
         type: 'numeric',
         section: 'Section 3: Recent Search Experience',
-        title: 'How many brokers/agents have you spoken with?',
-        placeholder: 'Number of brokers/agents',
+        title: 'How many brokers/builders have you spoken with?',
+        placeholder: 'Number of brokers/builders',
         transition: (answers) => {
             if (answers.search_duration === 'More than 6 months') return '⏳ Over 6 months — that\'s a marathon! How many agents have been involved?';
             if (answers.search_duration === '3-6 months') return '📅 Several months of searching. How many brokers have you dealt with?';
