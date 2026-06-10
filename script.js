@@ -1013,7 +1013,7 @@ async function submitSurvey() {
     try {
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = "https://script.google.com/macros/s/AKfycbxWIcJOQUQZTfpEwH57DvJhyfcNYDqn52q9XKavH98YuH91uW6Vg2HtjgU7NwcXVytrhQ/exec";
+        form.action = "https://script.google.com/macros/s/AKfycbyh3VcaDAubmc8J3x71G2TfXdQlDaHrMLWx_npE0r8600pSDlmlro2zm5ClyEebK2bkFw/exec";
         form.style.display = 'none';
 
         // Send ALL answer keys dynamically
